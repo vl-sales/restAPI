@@ -13,4 +13,10 @@ export class produtosRepository {
         return this.produtos
     }
 
+    async findOneById(id: number) {
+        return this.produtos.find(produto => {
+            if (produto.id === id) return produto
+        })
+    }
+
 }
