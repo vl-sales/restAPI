@@ -1,24 +1,24 @@
 import { Injectable } from "@nestjs/common"
-import { UsuarioEntity } from "./usuario.entity";
+import { UserEntity } from "./user.entity";
 
 @Injectable()
-export class UsuarioRepository {
-    private readonly users: UsuarioEntity[] = [];
+export class UserRepository {
+    private readonly users: UserEntity[] = [];
 
-    async salvar(user: UsuarioEntity) {
+    async save(user: UserEntity) {
         this.users.push(user);
         console.log(this.users);
     }
 
     async findOneByEmail(email: string) {
-        const possivelUsuario = this.users.find(
+        const possibleUser = this.users.find(
             usuario => usuario.email === email
         );
 
-        return possivelUsuario !== undefined;
+        return possibleUser !== undefined;
     }
 
-    async listar() {
+    async list() {
         return this.users;
     }
 
@@ -30,7 +30,7 @@ export class UsuarioRepository {
         return user
     }
 
-    async updateUser(id, userData: Partial<UsuarioEntity>): Promise<UsuarioEntity> {
+    async updateUser(id, userData: Partial<UserEntity>): Promise<UserEntity> {
         const user = await this.findOneById(id)
 
         Object.entries(userData).forEach(([chave, valor]) => {

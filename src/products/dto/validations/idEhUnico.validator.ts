@@ -1,16 +1,16 @@
 import { registerDecorator, ValidationArguments, ValidationOptions, ValidatorConstraint, ValidatorConstraintInterface } from "class-validator";
 import { Injectable } from "@nestjs/common";
-import { produtosRepository } from "src/produtos/produtos.repository";
+import { ProductRepository } from "src/products/product.repository";
 
 @Injectable()
 @ValidatorConstraint({ async: true })
 export class IdEhUnicoValidator implements ValidatorConstraintInterface {
     constructor(
-        private readonly _produtoRepository: produtosRepository
+        private readonly _productRepository: ProductRepository
     ){}
 
     async validate(value: any, validationArguments?: ValidationArguments): Promise<boolean> {
-        const idExiste = await this._produtoRepository.findOneById(value)
+        const idExiste = await this._productRepository.findOneById(value)
         return !idExiste
     }
 }
